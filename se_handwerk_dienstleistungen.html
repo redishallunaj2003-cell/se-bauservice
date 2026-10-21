@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SE - Handwerk & Dienstleistungen</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1e2538',
+                            darker: '#141926',
+                            accent: '#2563eb',
+                            accentHover: '#1d4ed8',
+                            lightBg: '#f1f5f9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Keyframe Animations & Hover Effects */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 50%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Card Hover Effects */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-wrapper img {
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .service-card:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        /* Hero Background Pattern */
+        .hero-pattern {
+            background-color: #f1f5f9;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(30, 37, 56, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.08) 0px, transparent 50%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141926;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 antialiased selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-brand-dark shadow-xl backdrop-blur-md bg-opacity-95 border-b border-slate-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- LOGO (SE Styling from Image) -->
+                <a href="#startseite" class="flex items-center group focus:outline-none">
+                    <div class="relative flex items-center justify-center bg-transparent border-2 border-white px-3 py-1 rounded-md transition-all duration-300 group-hover:border-blue-400 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        <span class="font-heading font-black text-3xl tracking-tighter text-white group-hover:scale-105 transition-transform duration-300 flex items-center">
+                            S<span class="text-blue-400 font-extrabold inline-block transform -skew-x-12 ml-0.5">E</span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAVIGATION -->
+                <nav class="hidden md:flex space-x-10">
+                    <a href="#startseite" class="nav-link text-slate-200 hover:text-white text-base font-medium py-1 transition duration-200 active">Startseite</a>
+                    <a href="#ueber-uns" class="nav-link text-slate-200 hover:text-white text-base font-medium py-1 transition duration-200">Ueber uns</a>
+                    <a href="#dienstleistungen" class="nav-link text-slate-200 hover:text-white text-base font-medium py-1 transition duration-200">Dienstleistungen</a>
+                    <a href="#kontakt" class="nav-link text-slate-200 hover:text-white text-base font-medium py-1 transition duration-200">Kontakt</a>
+                </nav>
+
+                <!-- CALL TO ACTION BUTTON (Header) -->
+                <div class="hidden md:flex items-center">
+                    <a href="#kontakt" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-blue-500 to-slate-600 group-hover:from-blue-600 group-hover:to-slate-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-800 transition-all duration-300 shadow-md hover:shadow-blue-500/20">
+                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-brand-dark rounded-md group-hover:bg-opacity-0 font-semibold">
+                            Anfrage senden
+                        </span>
+                    </a>
+                </div>
+
+                <!-- MOBILE MENU BUTTON -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-300 hover:text-white focus:outline-none p-2 rounded-md hover:bg-slate-800 transition" aria-label="Menu öffnen">
+                        <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU DROPDOWN -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-darker border-b border-slate-700 px-4 pt-2 pb-6 space-y-3 transition-all duration-300">
+            <a href="#startseite" class="mobile-nav-item block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800 hover:text-blue-400">Startseite</a>
+            <a href="#ueber-uns" class="mobile-nav-item block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-blue-400">Ueber uns</a>
+            <a href="#dienstleistungen" class="mobile-nav-item block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-blue-400">Dienstleistungen</a>
+            <a href="#kontakt" class="mobile-nav-item block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-blue-400">Kontakt</a>
+            <a href="#kontakt" class="block w-full text-center mt-4 bg-blue-600 text-white font-semibold py-2.5 rounded-md hover:bg-blue-700 transition">Jetzt anfragen</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+
+        <!-- STARTSEITE / HERO SECTION -->
+        <section id="startseite" class="relative hero-pattern py-12 lg:py-20 overflow-hidden">
+            <!-- Background Work Overlay Element -->
+            <div class="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+                <i class="fa-solid fa-hammer text-[400px] text-slate-900"></i>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <!-- HERO HEADINGS (Matching image mockup) -->
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <p class="text-slate-600 font-medium text-base sm:text-lg lg:text-xl tracking-wide mb-2 animate-fade-in">
+                        Von Bodenbelag bis hin zu Einbau von Baufertigteilen, so wie Gartenarbeit..
+                    </p>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-heading text-slate-900 tracking-tight leading-tight uppercase">
+                        WIR SIND FÜR VIELES DA!
+                    </h1>
+                    <div class="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- MAIN DARK CONTAINER CARD (Matching image mockup) -->
+                <div class="bg-brand-dark rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-700/60 transition-all duration-300">
+                    
+                    <!-- 3 IMAGE CARDS GRID -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        
+                        <!-- CARD 1: Bodenbelag -->
+                        <div class="service-card bg-slate-800/80 rounded-xl overflow-hidden border border-slate-700/80 flex flex-col group cursor-pointer" onclick="scrollToSection('dienstleistungen')">
+                            <div class="card-img-wrapper relative h-48 sm:h-52 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Bodenbelag und Innenausbau" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100"
+                                     onerror="this.src='https://placehold.co/600x400/1e2538/ffffff?text=Bodenbelag'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-3 left-3 bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded">
+                                    Innenausbau
+                                </span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition">Bodenbelagsarbeiten</h3>
+                                <p class="text-xs text-slate-300">Parkett, Laminat, Vinyl & professionelle Verlegung.</p>
+                            </div>
+                        </div>
+
+                        <!-- CARD 2: Baufertigteile -->
+                        <div class="service-card bg-slate-800/80 rounded-xl overflow-hidden border border-slate-700/80 flex flex-col group cursor-pointer" onclick="scrollToSection('dienstleistungen')">
+                            <div class="card-img-wrapper relative h-48 sm:h-52 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Baufertigteile & Renovierung" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100"
+                                     onerror="this.src='https://placehold.co/600x400/1e2538/ffffff?text=Baufertigteile'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-3 left-3 bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded">
+                                    Montage & Einbau
+                                </span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition">Baufertigteile</h3>
+                                <p class="text-xs text-slate-300">Türen, Fenster & vorgefertigte Bauelemente.</p>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3: Gartenarbeit -->
+                        <div class="service-card bg-slate-800/80 rounded-xl overflow-hidden border border-slate-700/80 flex flex-col group cursor-pointer" onclick="scrollToSection('dienstleistungen')">
+                            <div class="card-img-wrapper relative h-48 sm:h-52 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1558904541-efa8c196b27d?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Gartenarbeit & Pflege" 
+                                     class="w-full h-full object-cover opacity-90 group-hover:opacity-100"
+                                     onerror="this.src='https://placehold.co/600x400/1e2538/ffffff?text=Gartenarbeit'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-3 left-3 bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded">
+                                    Außenanlagen
+                                </span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition">Garten- & Arealpflege</h3>
+                                <p class="text-xs text-slate-300">Rasenpflege, Heckenschnitt & Anlageninstandhaltung.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- CARD FOOTER TEXT (Matching text in original mockup image) -->
+                    <div class="border-t border-slate-700/80 pt-6 mt-2 text-center">
+                        <p class="text-slate-200 text-sm sm:text-base lg:text-lg font-medium leading-relaxed max-w-4xl mx-auto">
+                            Ein gepflegtes Umfeld hinterlässt einen positiven Eindruck, schafft Wohlbefinden und trägt dazu bei, das Vertrauen in Ihr Unternehmen zu stärken.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STATS BANNER -->
+        <section class="bg-brand-darker py-10 border-y border-slate-800 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-blue-400 font-heading mb-1" id="stat-1">100+</div>
+                        <p class="text-xs sm:text-sm text-slate-400 uppercase tracking-wider">Erfolgreiche Projekte</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-blue-400 font-heading mb-1" id="stat-2">100%</div>
+                        <p class="text-xs sm:text-sm text-slate-400 uppercase tracking-wider">Zuverlässigkeit</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-blue-400 font-heading mb-1" id="stat-3">10+</div>
+                        <p class="text-xs sm:text-sm text-slate-400 uppercase tracking-wider">Jahre Erfahrung</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-blue-400 font-heading mb-1" id="stat-4">24/7</div>
+                        <p class="text-xs sm:text-sm text-slate-400 uppercase tracking-wider">Kundenservice</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UEBER UNS SECTION -->
+        <section id="ueber-uns" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Text Content -->
+                    <div class="space-y-6">
+                        <div class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Über unser Unternehmen</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold font-heading text-slate-900 leading-tight">
+                            Qualität, Präzision & Zuverlässigkeit aus einer Hand.
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Mit langjähriger Erfahrung im Bereich Handwerk, Montageservice und Grundstückspflege bieten wir unseren privaten wie gewerblichen Kunden maßgeschneiderte Lösungen. 
+                        </p>
+                        <p class="text-slate-600 leading-relaxed">
+                            Unser Anspruch ist es, jedes Projekt – vom einfachen Verlegen von Bodenbelägen bis hin zu komplexen Montagearbeiten von Baufertigteilen – mit höchster Sorgfalt und Termintreue auszuführen.
+                        </p>
+
+                        <!-- Feature Highlights -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="p-2 bg-blue-100 text-blue-600 rounded-lg shrink-0">
+                                    <i class="fa-solid fa-check text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900">Saubere Ausführung</h4>
+                                    <p class="text-xs text-slate-500">Präzises Arbeiten nach höchsten Standards.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="p-2 bg-blue-100 text-blue-600 rounded-lg shrink-0">
+                                    <i class="fa-solid fa-clock text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900">Pünktlich & Termintreu</h4>
+                                    <p class="text-xs text-slate-500">Zuverlässige Fertigstellung aller Aufträge.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="p-2 bg-blue-100 text-blue-600 rounded-lg shrink-0">
+                                    <i class="fa-solid fa-handshake text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900">Faire Preise</h4>
+                                    <p class="text-xs text-slate-500">Transparente Angebote ohne versteckte Kosten.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="p-2 bg-blue-100 text-blue-600 rounded-lg shrink-0">
+                                    <i class="fa-solid fa-leaf text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900">Alles aus einer Hand</h4>
+                                    <p class="text-xs text-slate-500">Vom Innenausbau bis zur Gartenarbeit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Image Showcase -->
+                    <div class="relative">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-100">
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Professionelles Handwerk" 
+                                 class="w-full h-auto object-cover transform hover:scale-105 transition duration-500"
+                                 onerror="this.src='https://placehold.co/800x600/1e2538/ffffff?text=SE+Handwerk'">
+                        </div>
+                        <!-- Badge Overlay -->
+                        <div class="absolute -bottom-6 -left-6 bg-brand-dark text-white p-6 rounded-2xl shadow-xl hidden sm:block border border-slate-700">
+                            <div class="flex items-center space-x-4">
+                                <i class="fa-solid fa-shield-halved text-4xl text-blue-400"></i>
+                                <div>
+                                    <span class="block text-xl font-bold font-heading">Meisterhafte Qualität</span>
+                                    <span class="text-xs text-slate-400">Ihr Partner für Haus & Garten</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- DIENSTLEISTUNGEN SECTION -->
+        <section id="dienstleistungen" class="py-20 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-blue-600 font-semibold text-xs uppercase tracking-widest bg-blue-100 px-3 py-1 rounded-full">Unser Portfolio</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold font-heading text-slate-900 mt-3">Unsere Dienstleistungen im Überblick</h2>
+                    <p class="text-slate-600 mt-3">Wir bieten ein breit gefächertes Angebot an qualifizierten Handwerks- und Pflegedienstleistungen.</p>
+                </div>
+
+                <!-- Service Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Service 1 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-200/80 group">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Bodenbelagsarbeiten</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Professionelles Verlegen von Vinyl, Laminat, Parkett und Teppichböden. Inklusive Untergrundvorbereitung und Leistenmontage.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Laminat & Parkett</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Vinyl & Designböden</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Sockelleisten & Übergänge</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-200/80 group">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-door-open"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Einbau von Baufertigteilen</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Fachgerechter Einbau von genormten Baufertigteilen wie Innentüren, Zargen, Fenstern, Regalsystemen und Fertigelementen.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Türen & Zargenmontage</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Fenster & Elemente</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Küchen- & Möbelmontage</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-200/80 group">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-tree"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Gartenarbeit & Pflege</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Ganzheitliche Garten- und Landschaftspflege für private Gärten sowie gewerbliche Außenbereiche und Grünanlagen.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Rasenpflege & Heckenschnitt</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Unkrautentfernung & Säuberung</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Saisonale Gartenarbeiten</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-200/80 group">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-paint-roller"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Renovierung & Instandhaltung</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Kleinere Renovierungsarbeiten, Ausbesserungsarbeiten an Wänden und Decken sowie Instandhaltungs-Services.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Maler- & Spachtelarbeiten</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Trockenbauanpassungen</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Reparaturdienste</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-200/80 group">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-broom"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Objektbetreuung & Pflege</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Regelmäßige Pflege von Immobilien, gewerblichen Objekten und Wohnanlagen für einen stets gepflegten Gesamteindruck.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Hausmeisterservice</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Treppenhaus- & Hofreinigung</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Regelmäßige Kontrolle</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-200/80 group">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-boxes-packing"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Entrümpelung & Service</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Schnelle und ordnungsgemäße Räumung von Kellerräumen, Garagen, Dachböden oder Gewerbeflächen.
+                        </p>
+                        <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Besenreine Übergabe</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Fachgerechte Entsorgung</li>
+                            <li class="flex items-center"><i class="fa-solid fa-angle-right text-blue-500 mr-2"></i> Zuverlässig & diskret</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- KONTAKT SECTION -->
+        <section id="kontakt" class="py-20 bg-brand-dark text-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    
+                    <!-- Contact Info -->
+                    <div class="space-y-8">
+                        <div>
+                            <span class="text-blue-400 font-semibold text-xs uppercase tracking-widest bg-blue-950/80 px-3 py-1 rounded-full border border-blue-800/50">Sprechen Sie uns an</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold font-heading text-white mt-3">Kontaktieren Sie uns für ein unverbindliches Angebot!</h2>
+                            <p class="text-slate-300 mt-4 leading-relaxed">
+                                Haben Sie Fragen zu unseren Leistungen oder möchten Sie ein konkretes Projekt besprechen? Rufen Sie uns an oder nutzen Sie das Kontaktformular.
+                            </p>
+                        </div>
+
+                        <div class="space-y-6">
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-blue-400 text-xl shrink-0 border border-slate-700">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs uppercase text-slate-400 font-medium">Telefon / WhatsApp</h4>
+                                    <a href="tel:+49123456789" class="text-lg font-semibold text-white hover:text-blue-400 transition">+49 (0) 123 456 789</a>
+                                    <p class="text-xs text-slate-400">Mo - Fr: 08:00 - 18:00 Uhr</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-blue-400 text-xl shrink-0 border border-slate-700">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs uppercase text-slate-400 font-medium">E-Mail Adresse</h4>
+                                    <a href="mailto:info@se-handwerk.de" class="text-lg font-semibold text-white hover:text-blue-400 transition">info@se-handwerk.de</a>
+                                    <p class="text-xs text-slate-400">Schnelle Antwort garantiert</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-blue-400 text-xl shrink-0 border border-slate-700">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs uppercase text-slate-400 font-medium">Einsatzgebiet</h4>
+                                    <p class="text-lg font-semibold text-white">Region & Umgebung</p>
+                                    <p class="text-xs text-slate-400">Wir kommen gerne direkt zu Ihrem Objekt</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Info Card -->
+                        <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700/60 flex items-center space-x-4">
+                            <i class="fa-solid fa-circle-info text-2xl text-blue-400"></i>
+                            <p class="text-xs text-slate-300">
+                                Kostenfreie Besichtigung und Erstberatung vor Ort für Ihr geplantes Vorhaben!
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Contact Form Card -->
+                    <div class="bg-brand-darker p-8 sm:p-10 rounded-3xl shadow-2xl border border-slate-700 relative">
+                        <h3 class="text-2xl font-bold font-heading text-white mb-6">Nachricht senden</h3>
+                        
+                        <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                            <div>
+                                <label for="name" class="block text-xs font-medium text-slate-300 mb-1">Ihr Name *</label>
+                                <input type="text" id="name" required placeholder="Max Mustermann" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="email" class="block text-xs font-medium text-slate-300 mb-1">E-Mail Adresse *</label>
+                                    <input type="email" id="email" required placeholder="max@beispiel.de" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-xs font-medium text-slate-300 mb-1">Telefonnummer</label>
+                                    <input type="tel" id="phone" placeholder="0170 1234567" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="service" class="block text-xs font-medium text-slate-300 mb-1">Gewünschte Dienstleistung</label>
+                                <select id="service" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                                    <option value="bodenbelag">Bodenbelagsarbeiten</option>
+                                    <option value="baufertigteile">Einbau von Baufertigteilen</option>
+                                    <option value="gartenarbeit">Gartenarbeit & Pflege</option>
+                                    <option value="renovierung">Renovierung & Instandhaltung</option>
+                                    <option value="sonstiges">Sonstiges / Anfrage</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs font-medium text-slate-300 mb-1">Ihre Nachricht *</label>
+                                <textarea id="message" rows="4" required placeholder="Beschreiben Sie kurz Ihr Vorhaben..." class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"></textarea>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-xl transition duration-300 shadow-lg hover:shadow-blue-600/30 flex items-center justify-center space-x-2">
+                                <span>Unverbindlich Anfragen</span>
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                            </button>
+                        </form>
+
+                        <!-- Success Message Box -->
+                        <div id="form-success" class="hidden absolute inset-0 bg-brand-darker rounded-3xl p-8 flex flex-col items-center justify-center text-center space-y-4">
+                            <div class="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-3xl">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white">Vielen Dank!</h4>
+                            <p class="text-slate-300 text-sm max-w-xs">Ihre Anfrage wurde erfolgreich übermittelt. Wir werden uns in Kürze bei Ihnen melden.</p>
+                            <button onclick="resetForm()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-4 py-2 rounded-lg transition">Weitere Nachricht senden</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-darker border-t border-slate-800 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                
+                <!-- Logo & Copyright -->
+                <div class="flex items-center space-x-3">
+                    <div class="border border-white/80 px-2 py-0.5 rounded text-white font-heading font-black text-xl">
+                        S<span class="text-blue-400">E</span>
+                    </div>
+                    <span class="text-sm">&copy; <span id="current-year"></span> SE Handwerk & Dienstleistungen. Alle Rechte vorbehalten.</span>
+                </div>
+
+                <!-- Footer Links -->
+                <div class="flex space-x-6 text-sm">
+                    <a href="#startseite" class="hover:text-white transition">Startseite</a>
+                    <a href="#ueber-uns" class="hover:text-white transition">Über uns</a>
+                    <a href="#dienstleistungen" class="hover:text-white transition">Dienstleistungen</a>
+                    <a href="#kontakt" class="hover:text-white transition">Kontakt</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Set dynamic current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Smooth scroll to section helper
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Active Navigation Highlighting on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Contact Form Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Wird gesendet...</span>`;
+
+            setTimeout(() => {
+                document.getElementById('form-success').classList.remove('hidden');
+            }, 800);
+        }
+
+        function resetForm() {
+            document.getElementById('contact-form').reset();
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>Unverbindlich Anfragen</span> <i class="fa-solid fa-paper-plane text-sm"></i>`;
+            document.getElementById('form-success').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
